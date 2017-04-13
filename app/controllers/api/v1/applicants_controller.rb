@@ -10,7 +10,7 @@ class Api::V1::ApplicantsController < ApplicationController
   end
 
   def create
-    applicant = Applicant.new(applicants_params)
+    applicant = CreateApplicant.new(applicants_params)
     if applicant.save
       render json: applicant, status: 201
     else
