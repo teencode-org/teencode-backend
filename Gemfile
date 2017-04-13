@@ -22,6 +22,9 @@ gem 'puma', '~> 3.0'
 # gem 'capistrano-rails', group: :development
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem "sidekiq"
+gem "redis"
+gem "redis-namespace"
 gem 'rack-cors'
 
 group :production do
@@ -38,6 +41,7 @@ group :development, :test do
   gem 'faker'
   gem 'coveralls', require: false
   gem 'shoulda-matchers'
+  gem "letter_opener"
 end
 
 group :development do
