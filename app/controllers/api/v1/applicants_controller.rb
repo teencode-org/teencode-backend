@@ -10,10 +10,11 @@ class Api::V1::ApplicantsController < ApplicationController
   end
 
   def create
-    applicant = CreateApplicant.new(applicants_params)
-    if applicant.save
-      render json: applicant, status: 201
+    create_applicant = CreateApplicant.new(applicants_params)
+    if create_applicant.save
+      render json: create_applicant.applicant, status: 201
     else
+      binding.pry
       render json: { error: 'Applicant could not be created'}, status: 422
     end
   end
