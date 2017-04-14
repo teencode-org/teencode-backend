@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.2'
 # Use sqlite3 as the database for Active Record
@@ -26,6 +25,12 @@ gem "sidekiq"
 gem "redis"
 gem "redis-namespace"
 gem 'rack-cors'
+
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+
+# gem 'bootstrap-sass', '~> 3.3.6'
+# gem 'sass-rails', '>= 3.2'
 
 group :production do
   gem "rails_12factor"
