@@ -22,7 +22,7 @@ class CreateApplicant
 
   def persist
     if applicant.save
-      # send_welcome_email(applicant)
+      send_welcome_email(applicant)
       true
     else
       false
