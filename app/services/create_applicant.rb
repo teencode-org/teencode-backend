@@ -14,10 +14,6 @@ class CreateApplicant
       persist
   end
 
-  def attributes
-    applicant.attributes
-  end
-
   private
 
   def persist
