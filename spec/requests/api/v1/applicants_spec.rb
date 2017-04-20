@@ -16,7 +16,7 @@ RSpec.describe 'Applicants' do
     end
 
     it 'should return 3 applicants' do
-      expect(json(response.body).count).to eq 3
+      expect(json(response.body)[:applicants].count).to eq 3
     end
   end
 
