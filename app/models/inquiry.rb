@@ -1,5 +1,4 @@
 class Inquiry < ApplicationRecord
-  validates :phone_number, presence: true
-  validates :email, presence: true
-  validates :message, presence: true
+  validates :phone_number, :email,:message, :name,  presence: true
+
 end
