@@ -18,11 +18,9 @@ class CreateInquiry
 
   def persist
     if inquiry.save
-      dispatch_emails
-      true
+      handle_suceess
     else
-      promote_errors(inquiry.errors)
-      false
+      handle_failure
     end
   end
 
@@ -30,6 +28,16 @@ class CreateInquiry
     child_errors.each do |attribute, message|
       errors.add(attribute, message)
     end
+  end
+
+  def handle_suceess
+    dispatch_emails
+    true
+  end
+
+  def handle_failure
+    promote_errors(inquiry.errors)
+    false
   end
 
   def dispatch_emails
