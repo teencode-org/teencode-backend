@@ -18,7 +18,7 @@ class CreateInquiry
 
   def persist
     if inquiry.save
-      inquiry_email
+      dispatch_emails
       true
     else
       promote_errors(inquiry.errors)
@@ -32,8 +32,11 @@ class CreateInquiry
     end
   end
 
-  def inquiry_email
-    InguiryMailer.admin_inquiry_email(inquiry_id: inquiry.id).deliver_later
-    InquiryMailer.user_contact_us_reply_email(user_email: email, user_name: name).deliver_later
+  def dispatch_emails
+    InquiryMailer.admin_inquiry_email(inquiry_id: inquiry.id).deliver_later
+    InquiryMailer.user_contact_us_reply_email(
+      user_email: email,
+      user_name: name
+    ).deliver_later
   end
 end

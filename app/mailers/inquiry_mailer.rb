@@ -1,10 +1,9 @@
 class InquiryMailer < ApplicationMailer
-  # default from: 'no-reply@teencode.com'
 
   def admin_inquiry_email(inquiry_id:)
     @inquiry = Inquiry.find(inquiry_id)
     mail(
-      to: 'teencodeafrica@gmail.com',
+      to: TEENCODEADMINEMAIL,
       subject: "[Feedback] A user reaching out",
       from: @inquiry.email
     )
@@ -14,7 +13,7 @@ class InquiryMailer < ApplicationMailer
     @user_name = user_name
     mail(
       to: user_email,
-      from: 'teencodeafrica@gmail.com',
+      from: TEENCODEADMINEMAIL,
       subject: "Thank you for reaching out to us"
       )
   end
