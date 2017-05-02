@@ -35,6 +35,7 @@ gem 'devise'
 group :production do
   gem "rails_12factor"
   gem "pg"
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
