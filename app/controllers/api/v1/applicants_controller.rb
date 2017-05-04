@@ -14,6 +14,7 @@ class Api::V1::ApplicantsController < ApplicationController
     if create_applicant.save
       render json: create_applicant.applicant, status: 201
     else
+      binding.pry
       render json: { error: 'Applicant could not be created'}, status: 422
     end
   end

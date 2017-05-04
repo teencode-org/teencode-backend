@@ -6,22 +6,22 @@ class Api::V1::InquiriesController < ApplicationController
 
   def show
     inquiry = Inquiry.find(params[:id])
-    render json: inquiry, status: 200
+    render json: inquiry, status: 200, root: false
   end
 
   def create
-    inquiry = Inquiry.new(inquiries_params)
-    if inquiry.save
-      render json: inquiry, status: 201
+    create_inquiry = CreateInquiry.new(inquiries_params)
+    if create_inquiry.save
+      render json: create_inquiry.inquiry, status: 201, root: false
     else
-      render json: { error: 'Inquiry could not be created'}, status: 422
+      render json: { errors: create_inquiry.errors}, status: 422
     end
   end
 
   def update
     inquiry = Inquiry.find(params[:id])
     if inquiry.update_attributes(inquiries_params)
-      render json: inquiry, status: 200
+      render json: inquiry, status: 200, root: false
     else
       render json: { error: 'Inquiry could not be created'}, status: 422
     end
@@ -37,7 +37,7 @@ class Api::V1::InquiriesController < ApplicationController
   private
 
   def inquiries_params
-    params.permit(:phone_number, :email, :message)
+    params.permit(:phone_number, :email, :message, :name)
   end
 
   def not_found
