@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/teencode-org/teencode-backend/tree/master.svg?style=svg)](https://circleci.com/gh/teencode-org/teencode-backend/tree/master)
 
+[![Coverage Status](https://coveralls.io/repos/github/teencode-org/teencode-backend/badge.svg?branch=master)](https://coveralls.io/github/teencode-org/teencode-backend?branch=master)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
