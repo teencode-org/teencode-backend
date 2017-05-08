@@ -18,7 +18,7 @@ RSpec.describe "Sessions" do
       it { expect(json(response.body).count).to eql 3 }
     end
 
-    describe "includes their resources" do
+    describe "includes their resource" do
       before do
         create_list(:session_with_resources, 2)
 
@@ -27,7 +27,7 @@ RSpec.describe "Sessions" do
 
       it do
         expect(json(response.body).all? do |session|
-          session[:resources].present?
+          session[:resource].present?
         end).to eql true
       end
     end
