@@ -1,67 +1,103 @@
 ActiveAdmin.register Session do
 
-permit_params(
-  :title,
-  :description,
-  projects_attributes: [:id, :title, :description, :_destroy],
-  resources_attributes: [:id, :link, :description, :_destroy],
-  objectives_attributes: [:id, :description]
-)
+  permit_params(
+    :title,
+    :description,
+    objective_attributes: [
+      :id,
+      :title,
+      :description,
+      notes_attributes: [:id, :description]],
+    resource_attributes: [
+      :id,
+      :title,
+      :description,
+      notes_attributes: [:id, :description, :link]],
+    project_attributes: [
+      :id,
+      :title,
+      :description,
+      notes_attributes: [:id, :description, :link]]
+  )
 
-show do
-  attributes_table do
-    row :title
-    row :description
+  show do
+    attributes_table do
+      row :title
+      row :description
 
-    panel "Session Projects" do
-      table_for session.projects do
-        column :title
-        column :description
+      panel "Session Objective" do
+        attributes_table_for session.objective do
+          row :title
+          row "Notes" do
+            table_for session.objective.notes do
+              column :description
+            end
+          end
+        end
+      end
+
+      panel "Session Resource" do
+        attributes_table_for session.resource do
+          row :title
+          row "Notes" do
+            table_for session.resource.notes do
+              column :description
+              column :link
+            end
+          end
+        end
+      end
+
+      panel "Session Project" do
+        attributes_table_for session.project do
+          row :title
+          row "Notes" do
+            table_for session.project.notes do
+              column :description
+              column :link
+            end
+          end
+        end
+      end
+    end
+  end
+
+  form do |f|
+    f.inputs "Curriculum Session" do
+      f.input :title, label: "Session Title"
+      f.input :description, label: "Session Description"
+    end
+
+    f.inputs do
+      f.inputs "Session Objective", for: [:objective, f.object.objective || Objective.new] do |p|
+        p.input :title
+        p.has_many :notes, heading: "Objective Notes", allow_destroy: true do |n|
+          n.input :description
+        end
       end
     end
 
-    panel "Session Resources" do
-      table_for session.resources do
-        column :link
-        column :description
+    f.inputs do
+      f.inputs "Session Resource", for: [:resource, f.object.resource || Resource.new] do |p|
+        p.input :title
+        p.has_many :notes, heading: "Resource Notes", allow_destroy: true do |n|
+          n.input :description
+          n.input :link
+        end
       end
     end
 
-    panel "Session Objectives" do
-      table_for session.objectives do
-        column :description
+    f.inputs do
+      f.inputs "Session Project", for: [:project, f.object.project || Project.new] do |p|
+        p.input :title
+        p.has_many :notes, heading: "Project Notes", allow_destroy: true do |n|
+          n.input :description
+          n.input :link
+        end
       end
     end
-  end
-end
 
-form do |f|
-  f.inputs "Curriculum Session" do
-    f.input :title, label: "Session Title"
-    f.input :description, label: "Session Description"
+    f.actions
   end
-
-  f.inputs do
-    f.has_many :projects, heading: "Session Projects", allow_destroy: true do |p|
-      p.input :title
-      p.input :description
-    end
-  end
-
-  f.inputs do
-    f.has_many :resources, heading: "Session Resources", allow_destroy: true do |p|
-      p.input :link
-      p.input :description
-    end
-  end
-
-  f.inputs do
-    f.has_many :objectives, heading: "Session Objectives", allow_destroy: true do |p|
-      p.input :description
-    end
-  end
-
-  f.actions
-end
 
 end
