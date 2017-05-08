@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Sessions" do
   describe "GET #index" do
-    let(:sessions_path) {"/api/v1/sessions"}
+    let(:sessions_path) {"/api/v1/curriculum_sessions"}
 
     context "when there are sessions" do
       before do
