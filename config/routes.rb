@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :applicants
       resources :inquiries
-      resources :sessions, only: :index
+      resources :sessions, path: :curriculum_sessions, only: :index
     end
   end
 end
