@@ -1,8 +1,18 @@
 AllCops:
   Exclude:
     - "vendor/**/*"
-    - "db/schema.rb"
+    - "db/**/*"
+    - "bin/**/*"
+    - "config/**/*"
+    - "app/assets/**/*"
+    - "Rakefile"
+    - "spec/spec_helper.rb"
+    - "spec/rails_helper.rb"
+    - "Gemfile"
+    - "Gemfile.lock"
+    - "app/lib/**/*"
   UseCache: false
+  TargetRubyVersion: 2.2
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
