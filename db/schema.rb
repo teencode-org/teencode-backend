@@ -92,10 +92,10 @@ ActiveRecord::Schema.define(version: 20170507223403) do
 
   create_table "resources", force: :cascade do |t|
     t.integer  "session_id"
+    t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "title"
-    t.text     "description"
     t.index ["session_id"], name: "index_resources_on_session_id"
   end
 
