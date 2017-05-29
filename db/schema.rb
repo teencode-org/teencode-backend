@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409210331) do
+ActiveRecord::Schema.define(version: 20170507223403) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -59,6 +59,17 @@ ActiveRecord::Schema.define(version: 20170409210331) do
     t.text     "message"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "name"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text     "description"
+    t.string   "link"
+    t.string   "notable_type"
+    t.integer  "notable_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id"
   end
 
   create_table "objectives", force: :cascade do |t|
@@ -66,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170409210331) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "title"
     t.index ["session_id"], name: "index_objectives_on_session_id"
   end
 
@@ -81,9 +93,9 @@ ActiveRecord::Schema.define(version: 20170409210331) do
   create_table "resources", force: :cascade do |t|
     t.integer  "session_id"
     t.text     "description"
-    t.string   "link"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "title"
     t.index ["session_id"], name: "index_resources_on_session_id"
   end
 

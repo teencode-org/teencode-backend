@@ -16,7 +16,7 @@ RSpec.describe 'Inquiries' do
     end
 
     it 'should return 3 inquirys' do
-      expect(json(response.body).count).to eq 3
+      expect(json(response.body)[:inquiries].count).to eq 3
     end
   end
 
@@ -40,20 +40,44 @@ RSpec.describe 'Inquiries' do
   end
 
   describe 'create' do
-    before(:all) do
-      post '/api/v1/inquiries', attributes_for(:inquiry, phone_number: '081086474838')
+    context "when data is valid" do
+      before(:all) do
+        post '/api/v1/inquiries', attributes_for(
+          :inquiry,
+          name: "Lekan",
+          phone_number: '08166250000',
+          message: "I don get alert",
+          email: "user@test.com"
+        )
+      end
+
+      it "returns 201 status code" do
+        expect(response.status).to eq 201
+      end
+
+      it "returns the newly created inquiry object" do
+        expect(json(response.body)[:email]).to eq("user@test.com")
+      end
     end
 
-    it 'should return a status code of 200' do
-      expect(response.status).to eq 201
-    end
+    context "when data is not valid" do
+      before(:all) do
+        post '/api/v1/inquiries', attributes_for(
+          :inquiry,
+          name: "Lekan",
+          phone_number: '08166250000',
+          message: "I don get alert",
+          email: nil
+        )
+      end
 
-    it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
-    end
+      it "returns 422 status code" do
+        expect(response.status).to eq 422
+      end
 
-    it 'returns details of the newly created inquiry' do
-      expect(json(response.body)[:phone_number]).to eq('081086474838')
+      it "returns the error message" do
+        expect(json(response.body["errors"]["email"])).to be_truthy
+      end
     end
   end
 
@@ -83,5 +107,9 @@ RSpec.describe 'Inquiries' do
         delete("/api/v1/inquiries/#{inquiry.id}")
       end.to change(Inquiry, :count).by(-1)
     end
+  end
+
+  describe "#contact_us" do
+
   end
 end

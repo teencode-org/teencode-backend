@@ -25,7 +25,7 @@ gem "sidekiq"
 gem "redis"
 gem "redis-namespace"
 gem 'rack-cors'
-
+gem 'active_model_serializers'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 
@@ -35,10 +35,10 @@ gem 'devise'
 group :production do
   gem "rails_12factor"
   gem "pg"
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
-  gem 'pry'
   gem 'pry-rails'
   gem 'factory_girl_rails'
   gem 'rspec-rails'

@@ -1,67 +1,103 @@
 ActiveAdmin.register Session do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-permit_params :title, :description, project_attributes: [:id, :title, :description, :_destroy => true]
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
 
-# index do
-#   selectable_column
-#   id_column
-#   column :title
-#   column :description
-#   # column :sign_in_count
-#   # column :created_at
-#   actions
-# end
+  permit_params(
+    :title,
+    :description,
+    objective_attributes: [
+      :id,
+      :title,
+      :description,
+      notes_attributes: [:id, :description]],
+    resource_attributes: [
+      :id,
+      :title,
+      :description,
+      notes_attributes: [:id, :description, :link]],
+    project_attributes: [
+      :id,
+      :title,
+      :description,
+      notes_attributes: [:id, :description, :link]]
+  )
 
-show do
-   tabs do
-     tab 'Overview' do
-       attributes_table do
-         row(:title)
-         row(:description)
-       end
-     end
+  show do
+    attributes_table do
+      row :title
+      row :description
 
-     tab 'Payments' do
-       table_for session.projects do
-         row('Payment Type') { |p| p.title.titleize }
-        #  column('Received On', :created_at)
-        #  column('Payment Details & Notes', :notes)
-        #  column('Amount') { |p| number_to_currency(p.amount_in_dollars) }
-       end
-     end
-   end
- end
+      panel "Session Objective" do
+        attributes_table_for session.objective do
+          row :title
+          row "Notes" do
+            table_for session.objective.notes do
+              column :description
+            end
+          end
+        end
+      end
 
-form do |f|
-  f.inputs "Curriculum Session" do
-    f.input :title, label: "Session Title"
-    f.input :description, label: "Session Description"
+      panel "Session Resource" do
+        attributes_table_for session.resource do
+          row :title
+          row "Notes" do
+            table_for session.resource.notes do
+              column :description
+              column :link
+            end
+          end
+        end
+      end
 
-    f.fields_for :project do |f|
-      f.input :title, label: 'Project Title'
-      f.input :description, label: 'Project Description'
-    end
-
-    f.fields_for :resource do |f|
-      f.input :link, label: "Resource Link"
-      f.text_area :description, label: 'Resource Description'
-    end
-
-    f.fields_for :objective do |f|
-      f.input :description, label: 'Objective Description'
+      panel "Session Project" do
+        attributes_table_for session.project do
+          row :title
+          row "Notes" do
+            table_for session.project.notes do
+              column :description
+              column :link
+            end
+          end
+        end
+      end
     end
   end
-  f.actions
-end
+
+  form do |f|
+    f.inputs "Curriculum Session" do
+      f.input :title, label: "Session Title"
+      f.input :description, label: "Session Description"
+    end
+
+    f.inputs do
+      f.inputs "Session Objective", for: [:objective, f.object.objective || Objective.new] do |p|
+        p.input :title
+        p.has_many :notes, heading: "Objective Notes", allow_destroy: true do |n|
+          n.input :description
+        end
+      end
+    end
+
+    f.inputs do
+      f.inputs "Session Resource", for: [:resource, f.object.resource || Resource.new] do |p|
+        p.input :title
+        p.has_many :notes, heading: "Resource Notes", allow_destroy: true do |n|
+          n.input :description
+          n.input :link
+        end
+      end
+    end
+
+    f.inputs do
+      f.inputs "Session Project", for: [:project, f.object.project || Project.new] do |p|
+        p.input :title
+        p.has_many :notes, heading: "Project Notes", allow_destroy: true do |n|
+          n.input :description
+          n.input :link
+        end
+      end
+    end
+
+    f.actions
+  end
 
 end

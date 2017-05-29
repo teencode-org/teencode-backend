@@ -1,7 +1,14 @@
 class Session < ApplicationRecord
-  has_many :projects
-  has_many :resources
-  has_many :objectives
+  has_one :project, inverse_of: :session
+  has_one :resource, inverse_of: :session
+  has_one :objective, inverse_of: :session
+  before_save :tets
 
-  accepts_nested_attributes_for :projects, :resources, :objectives
+  accepts_nested_attributes_for :project
+  accepts_nested_attributes_for :resource
+  accepts_nested_attributes_for :objective
+
+  def tets
+    # binding.pry
+  end
 end

@@ -43,6 +43,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.8.3)
+      activemodel (>= 3.0)
     activejob (5.0.2)
       activesupport (= 5.0.2)
       globalid (>= 0.3.6)
@@ -153,6 +155,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    newrelic_rpm (4.1.0.333)
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -297,6 +300,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   activeadmin!
   coveralls
   database_cleaner
@@ -305,8 +309,8 @@ DEPENDENCIES
   faker
   letter_opener
   listen (~> 3.0.5)
+  newrelic_rpm
   pg
-  pry
   pry-rails
   puma (~> 3.0)
   rack-cors
