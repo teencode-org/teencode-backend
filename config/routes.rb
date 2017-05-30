@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :applicants
       resources :inquiries
       resources :sessions, path: :curriculum_sessions, only: :index
+      resources :progresses, only: :index
     end
   end
 end
