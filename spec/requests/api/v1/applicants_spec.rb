@@ -12,7 +12,7 @@ RSpec.describe 'Applicants' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'should return 3 applicants' do
@@ -23,6 +23,7 @@ RSpec.describe 'Applicants' do
   describe 'show' do
     before(:all) do
       applicant = create(:applicant, name: 'James Franco')
+
       get "/api/v1/applicants/#{applicant.id}"
     end
 
@@ -31,7 +32,7 @@ RSpec.describe 'Applicants' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'should return details of the applicant' do
@@ -41,7 +42,10 @@ RSpec.describe 'Applicants' do
 
   describe 'create' do
     before(:all) do
-      post '/api/v1/applicants', attributes_for(:applicant, name: 'James Franco')
+      post(
+        '/api/v1/applicants',
+        params: attributes_for(:applicant, name: 'James Franco')
+      )
     end
 
     it 'should return a status code of 200' do
@@ -49,7 +53,7 @@ RSpec.describe 'Applicants' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'returns details of the newly created applicant' do
@@ -60,7 +64,10 @@ RSpec.describe 'Applicants' do
   describe 'update' do
     before(:all) do
       applicant = create(:applicant)
-      put "/api/v1/applicants/#{applicant.id}", attributes_for(:applicant, name: 'James Franco')
+      put(
+        "/api/v1/applicants/#{applicant.id}",
+        params: attributes_for(:applicant, name: 'James Franco')
+      )
     end
 
     it 'should return a status code of 200' do
@@ -68,7 +75,7 @@ RSpec.describe 'Applicants' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'returns details of the newly created applicant' do

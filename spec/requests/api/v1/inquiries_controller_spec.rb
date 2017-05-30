@@ -12,7 +12,7 @@ RSpec.describe 'Inquiries' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'should return 3 inquirys' do
@@ -31,7 +31,7 @@ RSpec.describe 'Inquiries' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'should return details of the inquiry' do
@@ -42,7 +42,7 @@ RSpec.describe 'Inquiries' do
   describe 'create' do
     context "when data is valid" do
       before(:all) do
-        post '/api/v1/inquiries', attributes_for(
+        post '/api/v1/inquiries', params: attributes_for(
           :inquiry,
           name: "Lekan",
           phone_number: '08166250000',
@@ -62,7 +62,7 @@ RSpec.describe 'Inquiries' do
 
     context "when data is not valid" do
       before(:all) do
-        post '/api/v1/inquiries', attributes_for(
+        post '/api/v1/inquiries', params: attributes_for(
           :inquiry,
           name: "Lekan",
           phone_number: '08166250000',
@@ -84,7 +84,11 @@ RSpec.describe 'Inquiries' do
   describe 'update' do
     before(:all) do
       inquiry = create(:inquiry)
-      put "/api/v1/inquiries/#{inquiry.id}", attributes_for(:inquiry, phone_number: '081086474838')
+
+      put(
+        "/api/v1/inquiries/#{inquiry.id}",
+        params: attributes_for(:inquiry, phone_number: '081086474838')
+      )
     end
 
     it 'should return a status code of 200' do
@@ -92,7 +96,7 @@ RSpec.describe 'Inquiries' do
     end
 
     it 'returns json data' do
-      expect(response.content_type).to eq Mime::JSON
+      expect(response.content_type).to eq Mime[:json]
     end
 
     it 'returns details of the newly created inquiry' do
@@ -107,9 +111,5 @@ RSpec.describe 'Inquiries' do
         delete("/api/v1/inquiries/#{inquiry.id}")
       end.to change(Inquiry, :count).by(-1)
     end
-  end
-
-  describe "#contact_us" do
-
   end
 end
