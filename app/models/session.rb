@@ -9,6 +9,5 @@ class Session < ApplicationRecord
   accepts_nested_attributes_for :objective
 
   def tets
-    # binding.pry
   end
 end
