@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Api::V1::BlogsController, type: :controller do
-
   describe "GET #index" do
     context "when there are no blogs" do
       it "returns http status of not found" do
