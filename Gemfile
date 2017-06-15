@@ -28,7 +28,8 @@ gem 'rack-cors'
 gem 'active_model_serializers'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
-gem "will_paginate"
+gem "kaminari"
+gem 'tinymce-rails'
 
 # gem 'bootstrap-sass', '~> 3.3.6'
 # gem 'sass-rails', '>= 3.2'
