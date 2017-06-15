@@ -287,6 +287,8 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.7)
     tins (1.13.2)
+    tinymce-rails (4.6.4)
+      railties (>= 3.1.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     unicode-display_width (1.2.1)
@@ -307,6 +309,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+  kaminari
   letter_opener
   listen (~> 3.0.5)
   newrelic_rpm
@@ -325,7 +328,8 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
+  tinymce-rails
   tzinfo-data
 
 BUNDLED WITH
-   1.13.6
+   1.15.1
