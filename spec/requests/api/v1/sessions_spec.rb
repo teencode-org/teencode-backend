@@ -31,7 +31,7 @@ RSpec.describe "Sessions" do
         end).to eql true
       end
     end
-    
+
     context "when there are no sessions" do
       before do
         get sessions_path
@@ -44,6 +44,22 @@ RSpec.describe "Sessions" do
       it "returns a bodiless response" do
         expect(response.body).to be_empty
       end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    context 'when session has resource, project and objective' do
+      let(:session_with_rpo) { create(:session) }
+
+      it 'should delete session with all its rpo and thier associated notes' do
+        expect {
+          delete
+        }
+      end
+    end
+
+    context 'when session does not have resource, project and objective' do
+
     end
   end
 end
