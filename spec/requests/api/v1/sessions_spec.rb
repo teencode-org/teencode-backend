@@ -46,20 +46,4 @@ RSpec.describe "Sessions" do
       end
     end
   end
-
-  describe 'DELETE destroy' do
-    context 'when session has resource, project and objective' do
-      let(:session_with_rpo) { create(:session) }
-
-      it 'should delete session with all its rpo and thier associated notes' do
-        expect {
-          delete
-        }
-      end
-    end
-
-    context 'when session does not have resource, project and objective' do
-
-    end
-  end
 end
