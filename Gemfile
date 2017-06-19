@@ -49,6 +49,7 @@ group :development, :test do
   gem 'coveralls', require: false
   gem 'shoulda-matchers'
   gem "letter_opener"
+  gem 'capybara'
 end
 
 group :development do

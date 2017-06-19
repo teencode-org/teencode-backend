@@ -31,7 +31,7 @@ RSpec.describe "Sessions" do
         end).to eql true
       end
     end
-    
+
     context "when there are no sessions" do
       before do
         get sessions_path
