@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :inquiries
       resources :sessions, path: :curriculum_sessions, only: :index
       resources :progresses, only: :index
-      resources :blogs, only: :index
+      resources :blogs, only: [:index, :show]
     end
   end
 end

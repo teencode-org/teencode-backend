@@ -15,6 +15,12 @@ class Api::V1::BlogsController < ApplicationController
     end
   end
 
+  def show
+    blog = Blog.find(params[:id])
+
+    render json: blog, status: 200, root: false
+  end
+
   private
 
   def page_data
