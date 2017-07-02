@@ -3,6 +3,7 @@ ActiveAdmin.register Session do
   permit_params(
     :title,
     :description,
+    :order,
     objective_attributes: [
       :id,
       :title,
@@ -24,6 +25,7 @@ ActiveAdmin.register Session do
     attributes_table do
       row :title
       row :description
+      row :order
 
       panel "Session Objective" do
         attributes_table_for session.objective do
@@ -66,6 +68,7 @@ ActiveAdmin.register Session do
     f.inputs "Curriculum Session" do
       f.input :title, label: "Session Title"
       f.input :description, label: "Session Description"
+      f.input :order, label: "Session Order"
     end
 
     f.inputs do
