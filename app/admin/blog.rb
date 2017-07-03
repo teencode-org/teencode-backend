@@ -35,7 +35,7 @@ ActiveAdmin.register Blog do
         blog.updated_at
       end
     end
-    active_admin_comments
+    # active_admin_comments
   end
 
 end

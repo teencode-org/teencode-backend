@@ -1,4 +1,5 @@
 ActiveAdmin.register Session do
+  menu if: proc { current_admin_user.super_user }
 
   permit_params(
     :title,
