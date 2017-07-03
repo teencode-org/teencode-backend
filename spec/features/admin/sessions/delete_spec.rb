@@ -3,7 +3,11 @@ require "rails_helper"
 RSpec.describe "Admin Sessions", type: :feature do
 
   before(:each) do
-    FactoryGirl.create(:admin_user, email: "admin@example.com", super_user: true)
+    FactoryGirl.create(
+      :admin_user,
+      email: "admin@example.com",
+      super_user: true
+    )
   end
 
   scenario "sessions with rpo with their associated notes" do
