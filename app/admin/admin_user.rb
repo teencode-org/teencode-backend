@@ -1,5 +1,12 @@
 ActiveAdmin.register AdminUser do
-  permit_params :first_name, :last_name, :email, :password, :password_confirmation
+  menu if: proc { current_admin_user.super_user }
+  
+  permit_params(
+    :first_name,
+    :last_name, :email,
+    :password,
+    :password_confirmation
+  )
 
   index do
     selectable_column
