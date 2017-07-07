@@ -1,4 +1,5 @@
 #= require active_admin/base
 #= require tinymce
 #= require tinymce-jquery
-tinyMCE.init selector: 'textarea'
+if location.pathname == "/admin/blogs/new"
+  tinyMCE.init selector: 'textarea'
