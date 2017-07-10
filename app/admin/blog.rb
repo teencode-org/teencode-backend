@@ -16,7 +16,7 @@ ActiveAdmin.register Blog do
     column :author
     column :title
     column "Content", :story do |blog|
-      blog.story.html_safe
+      (ActionView::Base.full_sanitizer.sanitize(blog.story[0...100]) + "...")
     end
     column :created_at
     column "Last Update", :updated_at
