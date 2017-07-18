@@ -5,7 +5,7 @@ ActiveAdmin.register Blog do
 #
 #
   permit_params do
-    permitted = %i(author_id title story featured featured_image_url)
+    permitted = [:author_id, :title, :story]
     params[:blog][:author_id] = current_admin_user.id if params[:blog]
     permitted
   end
@@ -16,7 +16,7 @@ ActiveAdmin.register Blog do
     column :author
     column :title
     column "Content", :story do |blog|
-      (ActionView::Base.full_sanitizer.sanitize(blog.story[0...100]) + "...")
+      blog.story.html_safe
     end
     column :created_at
     column "Last Update", :updated_at
@@ -30,8 +30,6 @@ ActiveAdmin.register Blog do
       row :story do |blog|
         blog.story.html_safe
       end
-      row :featured_image_url
-      row :featured
       row :created_at
       row "Last Update" do |blog|
         blog.updated_at

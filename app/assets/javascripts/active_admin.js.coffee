@@ -1,6 +1,5 @@
 #= require active_admin/base
 #= require tinymce
 #= require tinymce-jquery
-regexp = /^\/admin\/blogs\/\d+\/edit$/
-if location.pathname == "/admin/blogs/new" || regexp.test(location.pathname)
+if location.pathname == "/admin/blogs/new"
   tinyMCE.init selector: 'textarea'
