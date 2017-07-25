@@ -1,7 +1,7 @@
 class Api::V1::BlogsController < ApplicationController
   def index
     @blogs = Blog.page(params[:page]).per(params[:per_page])
-    @blogs = @blogs.where(featured: true) if params[featured] == true
+    @blogs = @blogs.where(featured: true) if params[:featured] == true
     if @blogs.empty?
       render json: @blogs, status: 404
     else
