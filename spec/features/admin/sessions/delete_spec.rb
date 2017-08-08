@@ -20,7 +20,7 @@ RSpec.describe "Admin Sessions", type: :feature do
     expect(page).to have_content "Sessions"
 
     click_link "Delete"
-    save_and_open_page
+
     expect(page).to have_content "Session was successfully destroyed."
   end
 end

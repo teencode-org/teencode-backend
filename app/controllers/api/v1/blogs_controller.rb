@@ -1,6 +1,7 @@
 class Api::V1::BlogsController < ApplicationController
   def index
     @blogs = Blog.page(params[:page]).per(params[:per_page])
+
     if @blogs.empty?
       render json: @blogs, status: 404
     else
@@ -23,6 +24,19 @@ class Api::V1::BlogsController < ApplicationController
       head 404
     end
   end
+
+  def featured_blogs
+    @blogs = Blog.where(featured: true).page(params[:page]).per(params[:per_page])
+    render(
+      json: {
+        blogs: ActiveModel::ArraySerializer.new(@blogs),
+        page_data: page_data
+      },
+      status: 200,
+      root: false
+    )
+  end
+
 
   private
 
