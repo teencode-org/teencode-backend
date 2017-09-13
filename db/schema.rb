@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170710122052) do
+ActiveRecord::Schema.define(version: 20170911143258) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 20170710122052) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "admin_users_facilitator_guides", id: false, force: :cascade do |t|
+    t.integer "admin_user_id",        null: false
+    t.integer "facilitator_guide_id", null: false
+    t.index ["admin_user_id", "facilitator_guide_id"], name: "user_guide"
+    t.index ["facilitator_guide_id", "admin_user_id"], name: "guide_user"
+  end
+
   create_table "applicants", force: :cascade do |t|
     t.string   "name"
     t.string   "profession"
@@ -64,6 +71,16 @@ ActiveRecord::Schema.define(version: 20170710122052) do
     t.datetime "updated_at",         null: false
     t.string   "featured_image_url"
     t.boolean  "featured"
+  end
+
+  create_table "facilitator_guides", force: :cascade do |t|
+    t.string   "title"
+    t.string   "level"
+    t.integer  "session"
+    t.string   "intro_video"
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "inquiries", force: :cascade do |t|
