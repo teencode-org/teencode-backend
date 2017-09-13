@@ -1,6 +1,6 @@
 module Support
   module TestHelpers
-    def json(response_body)
+    def json(body)
       JSON.parse(body, symbolize_names: true)
     end
 

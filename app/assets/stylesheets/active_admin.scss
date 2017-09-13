@@ -10,6 +10,23 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+@import "bootstrap-select";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.label {
+  color: #323537;
+  font-size: 100%;
+}
+
+form fieldset {
+  legend span {
+    line-height: inherit;
+  }
+  ol span {
+    text-shadow: none;
+  }
+}
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
