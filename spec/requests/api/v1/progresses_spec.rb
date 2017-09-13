@@ -10,7 +10,7 @@ RSpec.describe "Progresses" do
     end
 
     it "should render a progress object" do
-      expect(json(response)[:progress]).to be_present
+      expect(json(response.body)[:progress]).to be_present
     end
   end
 end
