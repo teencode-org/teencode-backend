@@ -3,7 +3,7 @@ class FacilitatorGuideSerializer < ActiveModel::Serializer
              :intro_video, :body, :next, :previous
   has_many :authors, serializer: AuthorSerializer
 
-  [:next, :previous].each do |record|
+  %i(next previous).each do |record|
     define_method record do
       post = object.send(record)
       if post
@@ -11,5 +11,4 @@ class FacilitatorGuideSerializer < ActiveModel::Serializer
       end
     end
   end
-
 end

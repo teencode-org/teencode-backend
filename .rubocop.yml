@@ -215,6 +215,12 @@ Style/Send:
     may overlap with existing methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#prefer-public-send
   Enabled: false
+Style/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+    - 'app/admin/*.rb'
 Style/SpecialGlobalVars:
   Description: Avoid Perl-style global variables.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-cryptic-perlisms

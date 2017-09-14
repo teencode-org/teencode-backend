@@ -6,8 +6,12 @@ ActiveAdmin.register FacilitatorGuide do
   permit_params :title, :level, :session, :intro_video, :body, author_ids: []
 
   form do |f|
-    f.inputs 'Authors' do
-      f.input :authors, :as => :select, :input_html => {:multiple => true, :class => "selectpicker"}
+    f.inputs "Authors" do
+      f.input(
+        :authors,
+        as: :select,
+        input_html: { multiple: true, class: "selectpicker" }
+      )
     end
 
     f.inputs "Facilitator Guide" do
@@ -27,8 +31,8 @@ ActiveAdmin.register FacilitatorGuide do
     column :title
     column :level
     column :intro_video
-    column "Content", :body do |facilitator_guide|
-      (ActionView::Base.full_sanitizer.sanitize(facilitator_guide.body[0...100]) + "...")
+    column "Content", :body do |guide|
+      (ActionView::Base.full_sanitizer.sanitize(guide.body[0...100]) + "...")
     end
     column :created_at
     column "Last Update", :updated_at
@@ -51,6 +55,5 @@ ActiveAdmin.register FacilitatorGuide do
         simple_format facilitator_guide.body
       end
     end
-
   end
 end

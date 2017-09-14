@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe FacilitatorGuide, type: :model do
-
   it { is_expected.to have_and_belong_to_many(:authors) }
   it { is_expected.to accept_nested_attributes_for(:authors) }
 
@@ -10,7 +9,6 @@ RSpec.describe FacilitatorGuide, type: :model do
   let!(:next_guide) { create(:facilitator_guide) }
 
   describe "#next" do
-
     it "will return the very next facilitor guide" do
       expect(guide.next).to eql next_guide
     end

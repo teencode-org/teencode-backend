@@ -1,10 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Api::V1::FacilitatorGuidesController, type: :controller do
   describe "#show" do
-
     context "when a valid facilitator guide id is sent" do
-
       it "should return a successful response" do
         guide = create(:facilitator_guide)
 
@@ -23,7 +21,6 @@ RSpec.describe Api::V1::FacilitatorGuidesController, type: :controller do
     end
 
     context "when an invalid facilitator guide is requested" do
-
       it "should return without a body" do
         get :show, params: { id: "fake id" }
 
