@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe FacilitatorGuide, type: :model do
   it { is_expected.to have_and_belong_to_many(:authors) }
   it { is_expected.to belong_to(:session) }
+
   it { is_expected.to accept_nested_attributes_for(:authors) }
 
   let!(:prev_guide) { create(:facilitator_guide) }
