@@ -76,7 +76,7 @@ RSpec.describe "Inquiries" do
       end
 
       it "returns the error message" do
-        expect(json(response.body["errors"]["email"])).to be_truthy
+        expect(json(response.body)[:errors][:email]).to be_truthy
       end
     end
   end
