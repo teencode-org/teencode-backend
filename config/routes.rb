@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       end
       resources :progresses, only: :index
       resources :blogs, only: [:show, :index]
+      resources :facilitator_guides, only: :show
+      resources :lesson_notes, only: :show
     end
   end
 end
