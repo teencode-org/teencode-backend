@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.datetime "updated_at",  null: false
     t.integer  "session_id"
     t.index ["session_id"], name: "index_facilitator_guides_on_session_id"
+
   end
 
   create_table "inquiries", force: :cascade do |t|
