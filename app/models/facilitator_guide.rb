@@ -1,5 +1,6 @@
 class FacilitatorGuide < ApplicationRecord
   has_and_belongs_to_many :authors, class_name: "AdminUser"
+
   accepts_nested_attributes_for :authors
 
   def next

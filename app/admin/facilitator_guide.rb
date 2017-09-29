@@ -17,7 +17,7 @@ ActiveAdmin.register FacilitatorGuide do
     f.inputs "Facilitator Guide" do
       f.input :title
       f.input :level
-      f.input :session
+      f.input :session, input_html: { class: "selectpicker" }
       f.input :intro_video
       f.input :body, input_html: { class: "tinyMCE" }
     end
