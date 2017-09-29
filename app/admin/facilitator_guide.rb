@@ -2,7 +2,6 @@ ActiveAdmin.register FacilitatorGuide do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-
   permit_params :title, :level, :session, :intro_video, :body, author_ids: []
 
   form do |f|
@@ -17,7 +16,7 @@ ActiveAdmin.register FacilitatorGuide do
     f.inputs "Facilitator Guide" do
       f.input :title
       f.input :level
-      f.input :session
+      f.input :session, input_html: { class: "selectpicker" }
       f.input :intro_video
       f.input :body, input_html: { class: "tinyMCE" }
     end
