@@ -49,7 +49,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'coveralls', require: false
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem "letter_opener"
   gem 'capybara'
 end
