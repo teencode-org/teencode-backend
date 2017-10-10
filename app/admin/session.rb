@@ -22,6 +22,12 @@ ActiveAdmin.register Session do
       notes_attributes: [:id, :description, :link]]
   )
 
+  sidebar "Guides and notes", only: [:show, :edit] do
+    ul do
+      li link_to "Facilitator Guides",    admin_session_facilitator_guides_path(resource)
+    end
+  end
+
   show do
     attributes_table do
       row :title
