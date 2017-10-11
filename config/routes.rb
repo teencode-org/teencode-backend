@@ -8,10 +8,11 @@ Rails.application.routes.draw do
 
       resources :applicants
       resources :inquiries
-      resources :sessions, path: :curriculum_sessions, only: :index
+      resources :sessions, path: :curriculum_sessions, only: :index do
+        resources :facilitator_guides, only: :show
+      end
       resources :progresses, only: :index
       resources :blogs, only: [:show, :index]
-      resources :facilitator_guides, only: :show
     end
   end
 end
