@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920233501) do
+ActiveRecord::Schema.define(version: 20170929145658) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -81,7 +81,6 @@ ActiveRecord::Schema.define(version: 20170920233501) do
   create_table "facilitator_guides", force: :cascade do |t|
     t.string   "title"
     t.string   "level"
-    t.integer  "session"
     t.string   "intro_video"
     t.text     "body"
     t.datetime "created_at",  null: false
@@ -102,11 +101,12 @@ ActiveRecord::Schema.define(version: 20170920233501) do
   create_table "lesson_notes", force: :cascade do |t|
     t.string   "title"
     t.string   "level"
-    t.integer  "session"
+    t.integer  "session_id"
     t.string   "intro_video"
     t.text     "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["session_id"], name: "index_lesson_notes_on_session_id"
   end
 
   create_table "notes", force: :cascade do |t|
