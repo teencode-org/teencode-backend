@@ -1,5 +1,5 @@
 class FacilitatorGuideSerializer < ActiveModel::Serializer
-  attributes :id, :title, :level, :session, :authors,
+  attributes :id, :title, :level, :authors,
              :intro_video, :body, :next, :previous
   has_many :authors, serializer: AuthorSerializer
 
