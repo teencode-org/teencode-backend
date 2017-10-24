@@ -6,6 +6,7 @@ class AdminUser < ApplicationRecord
 
   has_many :stories, class_name: Blog, foreign_key: :author_id
   has_and_belongs_to_many :facilitator_guides
+  has_and_belongs_to_many :lesson_notes
 
   validates :first_name, :last_name, presence: true
 

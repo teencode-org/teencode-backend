@@ -24,7 +24,8 @@ ActiveAdmin.register Session do
 
   sidebar "Guides and notes", only: [:show, :edit] do
     ul do
-      li link_to "Facilitator Guides",    admin_session_facilitator_guides_path(resource)
+      li link_to "Facilitator Guides", admin_session_facilitator_guides_path(resource)
+      li link_to "Lesson Notes", admin_session_lesson_notes_path(resource)
     end
   end
 

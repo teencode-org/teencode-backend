@@ -50,7 +50,12 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.integer "admin_user_id",        null: false
     t.integer "facilitator_guide_id", null: false
     t.index ["admin_user_id", "facilitator_guide_id"], name: "user_guide"
-    t.index ["facilitator_guide_id", "admin_user_id"], name: "guide_user"
+  end
+
+  create_table "admin_users_lesson_notes", id: false, force: :cascade do |t|
+    t.integer "lesson_note_id", null: false
+    t.integer "admin_user_id",  null: false
+    t.index ["lesson_note_id", "admin_user_id"], name: "note_user"
   end
 
   create_table "applicants", force: :cascade do |t|
@@ -76,7 +81,6 @@ ActiveRecord::Schema.define(version: 20170929145658) do
   create_table "facilitator_guides", force: :cascade do |t|
     t.string   "title"
     t.string   "level"
-    t.integer  "session"
     t.string   "intro_video"
     t.text     "body"
     t.datetime "created_at",  null: false
@@ -92,6 +96,17 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "name"
+  end
+
+  create_table "lesson_notes", force: :cascade do |t|
+    t.string   "title"
+    t.string   "level"
+    t.integer  "session_id"
+    t.string   "intro_video"
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["session_id"], name: "index_lesson_notes_on_session_id"
   end
 
   create_table "notes", force: :cascade do |t|

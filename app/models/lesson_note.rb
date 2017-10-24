@@ -1,4 +1,4 @@
-class FacilitatorGuide < ApplicationRecord
+class LessonNote < ApplicationRecord
   has_and_belongs_to_many :authors, class_name: "AdminUser"
   belongs_to :session
 
