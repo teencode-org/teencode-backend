@@ -9,6 +9,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :session_with_lesson_note_and_facilitator_guide do
+      after(:create) do |session|
+        create(:lesson_note, session: session)
+        create(:facilitator_guide, session: session)
+      end
+    end
+
     # session with resource, project, and objective
     factory :session_with_rpo do
       after(:create) do |session|

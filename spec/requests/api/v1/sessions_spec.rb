@@ -25,10 +25,22 @@ RSpec.describe "Sessions" do
         get sessions_path
       end
 
-      it do
+      it  do
         expect(json(response.body).all? do |session|
           session[:resource].present?
         end).to eql true
+      end
+    end
+
+    describe "session has lesson_note and facilitator_guide" do
+      it 'returns lesson_note and facilitator_guide' do
+        session = create(:session_with_lesson_note_and_facilitator_guide)
+        get sessions_path
+        expect(response.status).to eq(200)
+        json(response.body).each do |session|
+          expect(session[:facilitator_guides][0]).not_to be_nil
+          expect(session[:lesson_notes][0]).not_to be_nil
+        end
       end
     end
 
