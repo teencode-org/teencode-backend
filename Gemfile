@@ -39,7 +39,6 @@ gem 'tinymce-rails'
 
 group :production do
   gem "rails_12factor"
-  # gem "pg"
   gem 'newrelic_rpm'
 end
 
@@ -56,7 +55,6 @@ group :development, :test do
 end
 
 group :development do
-  # gem 'sqlite3'
   gem 'listen', '~> 3.0.5'
   gem 'rubocop'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
