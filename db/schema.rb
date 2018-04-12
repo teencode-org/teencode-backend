@@ -170,10 +170,11 @@ ActiveRecord::Schema.define(version: 20180404151000) do
   create_table "schools", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
-    t.integer  "lead_facilitator"
+    t.integer  "lead_facilitator_id"
     t.boolean  "is_active"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["lead_facilitator_id"], name: "index_schools_on_lead_facilitator_id", using: :btree
     t.index ["name"], name: "index_schools_on_name", using: :btree
   end
 
@@ -194,4 +195,5 @@ ActiveRecord::Schema.define(version: 20180404151000) do
   end
 
   add_foreign_key "reports", "users"
+  add_foreign_key "schools", "users", column: "lead_facilitator_id"
 end
