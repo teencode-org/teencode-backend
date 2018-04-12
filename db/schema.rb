@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929145658) do
+ActiveRecord::Schema.define(version: 20180404151000) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -21,9 +24,9 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.integer  "author_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -42,20 +45,20 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "super_user",             default: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "admin_users_facilitator_guides", id: false, force: :cascade do |t|
     t.integer "admin_user_id",        null: false
     t.integer "facilitator_guide_id", null: false
-    t.index ["admin_user_id", "facilitator_guide_id"], name: "user_guide"
+    t.index ["admin_user_id", "facilitator_guide_id"], name: "user_guide", using: :btree
   end
 
   create_table "admin_users_lesson_notes", id: false, force: :cascade do |t|
     t.integer "lesson_note_id", null: false
     t.integer "admin_user_id",  null: false
-    t.index ["lesson_note_id", "admin_user_id"], name: "note_user"
+    t.index ["lesson_note_id", "admin_user_id"], name: "note_user", using: :btree
   end
 
   create_table "applicants", force: :cascade do |t|
@@ -86,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "session_id"
-    t.index ["session_id"], name: "index_facilitator_guides_on_session_id"
+    t.index ["session_id"], name: "index_facilitator_guides_on_session_id", using: :btree
   end
 
   create_table "inquiries", force: :cascade do |t|
@@ -106,7 +109,7 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.text     "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["session_id"], name: "index_lesson_notes_on_session_id"
+    t.index ["session_id"], name: "index_lesson_notes_on_session_id", using: :btree
   end
 
   create_table "notes", force: :cascade do |t|
@@ -116,7 +119,7 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.integer  "notable_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id"
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id", using: :btree
   end
 
   create_table "objectives", force: :cascade do |t|
@@ -125,7 +128,7 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "title"
-    t.index ["session_id"], name: "index_objectives_on_session_id"
+    t.index ["session_id"], name: "index_objectives_on_session_id", using: :btree
   end
 
   create_table "progresses", force: :cascade do |t|
@@ -142,7 +145,17 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.string   "title"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["session_id"], name: "index_projects_on_session_id"
+    t.index ["session_id"], name: "index_projects_on_session_id", using: :btree
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.json     "data"
+    t.integer  "quarter"
+    t.integer  "user_id"
+    t.integer  "school_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id", using: :btree
   end
 
   create_table "resources", force: :cascade do |t|
@@ -151,7 +164,18 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "title"
-    t.index ["session_id"], name: "index_resources_on_session_id"
+    t.index ["session_id"], name: "index_resources_on_session_id", using: :btree
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "lead_facilitator_id"
+    t.boolean  "is_active"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["lead_facilitator_id"], name: "index_schools_on_lead_facilitator_id", using: :btree
+    t.index ["name"], name: "index_schools_on_name", using: :btree
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -162,4 +186,14 @@ ActiveRecord::Schema.define(version: 20170929145658) do
     t.integer  "order"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "is_active"
+    t.integer  "school_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "reports", "users"
+  add_foreign_key "schools", "users", column: "lead_facilitator_id"
 end
