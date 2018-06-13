@@ -11,13 +11,14 @@ RSpec.describe InquiryMailer, type: :mailer do
         expect(mail.subject).to eq("[Feedback] A user reaching out")
       end
 
-      it "renders the receiver of the email" do
+      it "renders the receivers of the email" do
         inquiry = stubbed_inquiry
         mail = InquiryMailer.admin_inquiry_email(
           inquiry_id: inquiry.id
         ).deliver_now
 
         expect(mail.to).to eq([InquiryMailer::TEENCODEADMINEMAIL])
+        expect(mail.cc).to eq(InquiryMailer::TEAMLEADS)
       end
 
       it "renders the sender" do

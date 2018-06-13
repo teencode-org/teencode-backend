@@ -33,6 +33,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem "kaminari"
 gem 'tinymce-rails'
+gem "sentry-raven"
 
 # gem 'bootstrap-sass', '~> 3.3.6'
 # gem 'sass-rails', '>= 3.2'
