@@ -3,10 +3,9 @@
       Hello Teencode,
     </header>
     <article >
-      <p>
-        My name is <%= @inquiry.name.capitalize %>
-      </p>
-      <%=@inquiry.message %>
+      <p><strong>Name: </strong>My name is <%= @inquiry.name.capitalize %></p>
+      <p><strong>Phone Number: </strong>My name is <%= @inquiry.phone_number %></p>
+      <strong>Message: </strong><em><i><%=@inquiry.message %></i></em>
     </article>
 
     <footer>

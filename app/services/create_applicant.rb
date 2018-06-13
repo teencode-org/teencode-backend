@@ -18,14 +18,15 @@ class CreateApplicant
 
   def persist
     if applicant.save
-      send_welcome_email(applicant)
+      dispatch_emails
       true
     else
       false
     end
   end
 
-  def send_welcome_email(applicant)
-    ApplicantMailer.welcome_email(applicant.id).deliver_later(wait: 15.seconds)
+  def dispatch_emails
+    ApplicantMailer.welcome_email(applicant.id).deliver_later
+    ApplicantMailer.admin_applicant_email(applicant_id: applicant.id).deliver_later
   end
 end

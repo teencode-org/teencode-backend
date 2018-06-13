@@ -1,0 +1,24 @@
+<div >
+    <header>
+      Hello Teencode,
+    </header>
+    <article >
+      <p>
+        My name is <%= @applicant.name %>
+      </p>
+      <p><strong>Profession: </strong> <%= @applicant.profession %></p>
+      <p><strong>Phone Number: </strong><%= @applicant.phone_number %></p>
+      <strong>Reason For Applying: </strong><em><i><%=@applicant.reason_for_applying %></i></em>
+    </article>
+
+    <footer>
+      <p>Thanks for listening.</p>
+      <p>
+        Warm regards,
+      </p>
+      <div class="">
+        <p><%= @applicant.name %></p>
+        User, Teencode Africa
+      </div>
+    </footer>
+</div>

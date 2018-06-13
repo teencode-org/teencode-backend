@@ -4,6 +4,7 @@ class InquiryMailer < ApplicationMailer
     @inquiry = Inquiry.find(inquiry_id)
     mail(
       to: TEENCODEADMINEMAIL,
+      cc: TEAMLEADS,
       subject: "[Feedback] A user reaching out",
       from: @inquiry.email
     )

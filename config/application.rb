@@ -16,6 +16,12 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Raven.configure do |config|
+  config.dsn = 'https://25adb018ac2446cca9eebc9f70c349ad:ed2c4fb385444f408093507cc2d5c84f@sentry.io/1225572'
+  config.environments = %w[production staging]
+  config.silence_ready = Rails.env.development? || Rails.env.test?
+end
+
 module TeencodeBackend
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
