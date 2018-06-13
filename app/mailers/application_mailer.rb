@@ -9,9 +9,10 @@ class ApplicationMailer < ActionMailer::Base
     'paul.musisi@andela.com',
     'austin.roy@andela.com',
     'abdulqahhar.aminujatto@andela.com',
-    'loice.andia@andela.com'
+    'loice.andia@andela.com',
+    'godwin.onisofien@andela.com'
   ]
-  
+
   TEENCODEADMINEMAIL = 'teencodeafrica@gmail.com'.freeze
   layout 'mailer'
 end
