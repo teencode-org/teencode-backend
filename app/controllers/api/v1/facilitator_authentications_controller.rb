@@ -4,15 +4,21 @@ require "json"
 class Api::V1::FacilitatorAuthenticationsController < ApplicationController
   def authenticate
     access_token = get_access_token
-    identity = get_user_identity(access_token)
-    display_name = get_display_name(access_token)
-    User.create!(
-      name: identity["user"]["name"],
-      user_slack_id: identity["user"]["id"],
-      user_team_id: identity["team"]["id"],
-      user_access_token: access_token,
-      slack_handle: display_name
-    )
+    user = User.find_by(user_access_token: access_token)
+    if user
+      render json: user.as_json
+    else
+      identity = get_user_identity(access_token)
+      display_name = get_display_name(access_token)
+      user = User.create!(
+        name: identity["user"]["name"],
+        user_slack_id: identity["user"]["id"],
+        user_team_id: identity["team"]["id"],
+        user_access_token: access_token,
+        display_name: display_name
+      )
+      render json: user.as_json
+    end
   end
 
   def get_access_token
