@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180722162518) do
+ActiveRecord::Schema.define(version: 20180619155111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,8 +215,14 @@ ActiveRecord::Schema.define(version: 20180722162518) do
     t.string   "name"
     t.boolean  "is_active"
     t.integer  "school_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "slack_handle"
+    t.string   "user_slack_id"
+    t.string   "user_team_id"
+    t.string   "user_access_token"
+    t.index ["user_access_token"], name: "index_users_on_user_access_token", using: :btree
+    t.index ["user_slack_id"], name: "index_users_on_user_slack_id", unique: true, using: :btree
   end
 
   add_foreign_key "facilitator_guides", "sessions"
