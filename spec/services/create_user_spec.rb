@@ -25,3 +25,13 @@ RSpec.describe CreateUser, type: :service do
   #   end
   # end
 end
+School.create(
+  name: 'Summer Club Lagos August 2018',
+  address: 'Andela EPIC TOWER',
+  lead_facilitator_id: 1,
+  school_type: 'summer_club',
+  location: 'Lagos',
+  center: 'Lagos Mainland'
+)
+
+User.create(name: 'Ogbara Godwin', school_id: 0, center: 'Lagos Mainland', location: 'Lagos', type: 'facilitator')
