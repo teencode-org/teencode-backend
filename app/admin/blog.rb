@@ -1,9 +1,9 @@
 ActiveAdmin.register Blog do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-#
-#
+  # See permitted parameters documentation:
+  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+  #
+  #
+  #
   permit_params do
     permitted = %i(author_id title story featured featured_image_url)
     params[:blog][:author_id] = current_admin_user.id if params[:blog]
@@ -15,11 +15,11 @@ ActiveAdmin.register Blog do
     id_column
     column :author
     column :title
-    column "Content", :story do |blog|
-      (ActionView::Base.full_sanitizer.sanitize(blog.story[0...100]) + "...")
+    column 'Content', :story do |blog|
+      (ActionView::Base.full_sanitizer.sanitize(blog.story[0...100]) + '...')
     end
     column :created_at
-    column "Last Update", :updated_at
+    column 'Last Update', :updated_at
     actions
   end
 
@@ -33,11 +33,8 @@ ActiveAdmin.register Blog do
       row :featured_image_url
       row :featured
       row :created_at
-      row "Last Update" do |blog|
-        blog.updated_at
-      end
+      row 'Last Update', &:updated_at
     end
     # active_admin_comments
   end
-
 end

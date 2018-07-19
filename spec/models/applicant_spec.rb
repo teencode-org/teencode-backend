@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Applicant, type: :model do
-  subject{ create(:applicant) }
+  subject { create(:applicant) }
 
   describe 'instance methods' do
     it { is_expected.to respond_to :name }

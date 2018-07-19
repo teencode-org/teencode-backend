@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Inquiry, type: :model do
-  subject{ create(:inquiry) }
+  subject { create(:inquiry) }
 
   describe 'instance methods' do
     it { is_expected.to respond_to :phone_number }

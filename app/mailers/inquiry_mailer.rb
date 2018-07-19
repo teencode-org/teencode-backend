@@ -1,11 +1,10 @@
 class InquiryMailer < ApplicationMailer
-
   def admin_inquiry_email(inquiry_id:)
     @inquiry = Inquiry.find(inquiry_id)
     mail(
       to: TEENCODEADMINEMAIL,
       cc: TEAMLEADS,
-      subject: "[Feedback] A user reaching out",
+      subject: '[Feedback] A user reaching out',
       from: @inquiry.email
     )
   end
@@ -15,7 +14,7 @@ class InquiryMailer < ApplicationMailer
     mail(
       to: user_email,
       from: TEENCODEADMINEMAIL,
-      subject: "Thank you for reaching out to us"
-      )
+      subject: 'Thank you for reaching out to us'
+    )
   end
 end

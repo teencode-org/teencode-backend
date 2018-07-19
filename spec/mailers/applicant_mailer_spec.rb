@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe ApplicantMailer, type: :mailer do
   describe 'welcome_email' do
@@ -27,22 +27,22 @@ RSpec.describe ApplicantMailer, type: :mailer do
       user = build_stubbed_user
       mail = ApplicantMailer.welcome_email(user.id)
 
-      expect { mail.deliver_now }
-        .to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { mail.deliver_now }.
+        to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
 
-  describe "admin_applicant_email" do
-    it "renders the subject" do
+  describe 'admin_applicant_email' do
+    it 'renders the subject' do
       applicant = build_stubbed_user
       mail = ApplicantMailer.admin_applicant_email(
         applicant_id: applicant.id
       ).deliver_now
 
-      expect(mail.subject).to eq("[Feedback] A user wants to be part of teencode")
+      expect(mail.subject).to eq('[Feedback] A user wants to be part of teencode')
     end
 
-    it "renders the receivers of the email" do
+    it 'renders the receivers of the email' do
       applicant = build_stubbed_user
       mail = ApplicantMailer.admin_applicant_email(
         applicant_id: applicant.id
@@ -52,7 +52,7 @@ RSpec.describe ApplicantMailer, type: :mailer do
       expect(mail.cc).to eq(ApplicantMailer::TEAMLEADS)
     end
 
-    it "renders the sender" do
+    it 'renders the sender' do
       applicant = build_stubbed_user
       mail = ApplicantMailer.admin_applicant_email(
         applicant_id: applicant.id
@@ -60,16 +60,15 @@ RSpec.describe ApplicantMailer, type: :mailer do
 
       expect(mail.from).to eq([applicant.email])
     end
-    it "sends the email" do
+    it 'sends the email' do
       applicant = build_stubbed_user
       mail = ApplicantMailer.admin_applicant_email(
         applicant_id: applicant.id
       )
 
-      expect { mail.deliver_now }
-      .to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect { mail.deliver_now }.
+        to change { ActionMailer::Base.deliveries.count }.by(1)
     end
-
   end
 
   def build_stubbed_user

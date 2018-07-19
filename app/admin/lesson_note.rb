@@ -6,19 +6,19 @@ ActiveAdmin.register LessonNote do
   permit_params :title, :level, :session, :intro_video, :body, author_ids: []
 
   form do |f|
-    f.inputs "Authors" do
+    f.inputs 'Authors' do
       f.input(
         :authors,
         as: :select,
-        input_html: { multiple: true, class: "selectpicker" }
+        input_html: { multiple: true, class: 'selectpicker' }
       )
     end
 
-    f.inputs "Lesson Note" do
+    f.inputs 'Lesson Note' do
       f.input :title
       f.input :level
       f.input :intro_video
-      f.input :body, input_html: { class: "tinyMCE" }
+      f.input :body, input_html: { class: 'tinyMCE' }
     end
 
     f.actions
@@ -30,11 +30,11 @@ ActiveAdmin.register LessonNote do
     column :title
     column :level
     column :intro_video
-    column "Content", :body do |note|
-      (ActionView::Base.full_sanitizer.sanitize(note.body[0...100]) + "...")
+    column 'Content', :body do |note|
+      (ActionView::Base.full_sanitizer.sanitize(note.body[0...100]) + '...')
     end
     column :created_at
-    column "Last Update", :updated_at
+    column 'Last Update', :updated_at
     actions
   end
 
@@ -44,10 +44,10 @@ ActiveAdmin.register LessonNote do
       row :level
       row :session
       row :authors do |lesson_note|
-        lesson_note.authors.join(", ")
+        lesson_note.authors.join(', ')
       end
       row :intro_video
-      row "Video" do |lesson_note|
+      row 'Video' do |lesson_note|
         video_tag lesson_note.intro_video, controls: true
       end
       row :body do |lesson_note|

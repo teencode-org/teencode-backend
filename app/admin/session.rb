@@ -9,23 +9,26 @@ ActiveAdmin.register Session do
       :id,
       :title,
       :description,
-      notes_attributes: [:id, :description]],
+      notes_attributes: %i(id description)
+    ],
     resource_attributes: [
       :id,
       :title,
       :description,
-      notes_attributes: [:id, :description, :link]],
+      notes_attributes: %i(id description link)
+    ],
     project_attributes: [
       :id,
       :title,
       :description,
-      notes_attributes: [:id, :description, :link]]
+      notes_attributes: %i(id description link)
+    ]
   )
 
-  sidebar "Guides and notes", only: [:show, :edit] do
+  sidebar 'Guides and notes', only: %i(show edit) do
     ul do
-      li link_to "Facilitator Guides", admin_session_facilitator_guides_path(resource)
-      li link_to "Lesson Notes", admin_session_lesson_notes_path(resource)
+      li link_to 'Facilitator Guides', admin_session_facilitator_guides_path(resource)
+      li link_to 'Lesson Notes', admin_session_lesson_notes_path(resource)
     end
   end
 
@@ -35,10 +38,10 @@ ActiveAdmin.register Session do
       row :description
       row :order
 
-      panel "Session Objective" do
+      panel 'Session Objective' do
         attributes_table_for session.objective do
           row :title
-          row "Notes" do
+          row 'Notes' do
             table_for session.objective.notes do
               column :description
             end
@@ -46,10 +49,10 @@ ActiveAdmin.register Session do
         end
       end
 
-      panel "Session Resource" do
+      panel 'Session Resource' do
         attributes_table_for session.resource do
           row :title
-          row "Notes" do
+          row 'Notes' do
             table_for session.resource.notes do
               column :description
               column :link
@@ -58,10 +61,10 @@ ActiveAdmin.register Session do
         end
       end
 
-      panel "Session Project" do
+      panel 'Session Project' do
         attributes_table_for session.project do
           row :title
-          row "Notes" do
+          row 'Notes' do
             table_for session.project.notes do
               column :description
               column :link
@@ -73,25 +76,25 @@ ActiveAdmin.register Session do
   end
 
   form do |f|
-    f.inputs "Curriculum Session" do
-      f.input :title, label: "Session Title"
-      f.input :description, label: "Session Description"
-      f.input :order, label: "Session Order"
+    f.inputs 'Curriculum Session' do
+      f.input :title, label: 'Session Title'
+      f.input :description, label: 'Session Description'
+      f.input :order, label: 'Session Order'
     end
 
     f.inputs do
-      f.inputs "Session Objective", for: [:objective, f.object.objective || Objective.new] do |p|
+      f.inputs 'Session Objective', for: [:objective, f.object.objective || Objective.new] do |p|
         p.input :title
-        p.has_many :notes, heading: "Objective Notes", allow_destroy: true do |n|
+        p.has_many :notes, heading: 'Objective Notes', allow_destroy: true do |n|
           n.input :description
         end
       end
     end
 
     f.inputs do
-      f.inputs "Session Resource", for: [:resource, f.object.resource || Resource.new] do |p|
+      f.inputs 'Session Resource', for: [:resource, f.object.resource || Resource.new] do |p|
         p.input :title
-        p.has_many :notes, heading: "Resource Notes", allow_destroy: true do |n|
+        p.has_many :notes, heading: 'Resource Notes', allow_destroy: true do |n|
           n.input :description
           n.input :link
         end
@@ -99,9 +102,9 @@ ActiveAdmin.register Session do
     end
 
     f.inputs do
-      f.inputs "Session Project", for: [:project, f.object.project || Project.new] do |p|
+      f.inputs 'Session Project', for: [:project, f.object.project || Project.new] do |p|
         p.input :title
-        p.has_many :notes, heading: "Project Notes", allow_destroy: true do |n|
+        p.has_many :notes, heading: 'Project Notes', allow_destroy: true do |n|
           n.input :description
           n.input :link
         end
@@ -110,5 +113,4 @@ ActiveAdmin.register Session do
 
     f.actions
   end
-
 end

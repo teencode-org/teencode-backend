@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404151000) do
+ActiveRecord::Schema.define(version: 20180719063305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,16 @@ ActiveRecord::Schema.define(version: 20180404151000) do
     t.index ["session_id"], name: "index_objectives_on_session_id", using: :btree
   end
 
+  create_table "parents", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.string   "email",        null: false
+    t.string   "phone_number", null: false
+    t.string   "center",       null: false
+    t.string   "location",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "progresses", force: :cascade do |t|
     t.integer  "schools"
     t.integer  "students"
@@ -174,6 +184,9 @@ ActiveRecord::Schema.define(version: 20180404151000) do
     t.boolean  "is_active"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "school_type",         null: false
+    t.string   "location",            null: false
+    t.string   "center"
     t.index ["lead_facilitator_id"], name: "index_schools_on_lead_facilitator_id", using: :btree
     t.index ["name"], name: "index_schools_on_name", using: :btree
   end
@@ -192,8 +205,17 @@ ActiveRecord::Schema.define(version: 20180404151000) do
     t.integer  "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "center"
+    t.string   "location"
+    t.string   "type"
+    t.string   "level"
   end
 
+  add_foreign_key "facilitator_guides", "sessions"
+  add_foreign_key "lesson_notes", "sessions"
+  add_foreign_key "objectives", "sessions"
+  add_foreign_key "projects", "sessions"
   add_foreign_key "reports", "users"
+  add_foreign_key "resources", "sessions"
   add_foreign_key "schools", "users", column: "lead_facilitator_id"
 end

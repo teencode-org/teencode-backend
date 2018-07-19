@@ -3,7 +3,6 @@ class CreateInquiry
 
   attr_accessor :phone_number, :email, :message, :name, :inquiry
 
-
   def save
     @inquiry = Inquiry.new(
       name: name,

@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   menu if: proc { current_admin_user.super_user }
-  
+
   permit_params(
     :first_name,
     :last_name, :email,
@@ -25,7 +25,7 @@ ActiveAdmin.register AdminUser do
   filter :created_at
 
   form do |f|
-    f.inputs "Admin Details" do
+    f.inputs 'Admin Details' do
       f.input :first_name
       f.input :last_name
       f.input :email
@@ -34,5 +34,4 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
-
 end

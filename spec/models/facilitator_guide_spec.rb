@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe FacilitatorGuide, type: :model do
   it { is_expected.to have_and_belong_to_many(:authors) }
@@ -8,12 +8,12 @@ RSpec.describe FacilitatorGuide, type: :model do
   let!(:guide) { create(:facilitator_guide) }
   let!(:next_guide) { create(:facilitator_guide) }
 
-  describe "#next" do
-    it "will return the very next facilitor guide" do
+  describe '#next' do
+    it 'will return the very next facilitor guide' do
       expect(guide.next).to eql next_guide
     end
 
-    it "will return the previous facilator guide" do
+    it 'will return the previous facilator guide' do
       expect(guide.previous).to eql prev_guide
     end
   end
