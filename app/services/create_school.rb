@@ -1,42 +1,23 @@
-class CreateSchool
-  include ActiveModel::Model
+class CreateSchool < Service::Create
+  field :name
+  field :address
+  field :lead_facilitator_id
+  field :location
+  field :school_type
+  field :is_active
+  field :center
 
-  attr_accessor :name, :address, :is_active, :location, :type
-
-
-  def save
-    @school = School.new(
-      name: name,
-      address: address,
-      is_active: is_active,
-      location: location,
-      type: type
-    )
-    persist
+  def initialize(name:, location:, lead_facilitator_id:, school_type:, is_active:, address:, center:)
+    @name = name
+    @address = address
+    @lead_facilitator_id = lead_facilitator_id
+    @location = location
+    @school_type = school_type
+    @is_active = is_active
+    @center = center
   end
 
-  private
-
-  def persist
-    if @school.save
-      handle_suceess
-    else
-      handle_failure
-    end
-  end
-
-  def promote_errors(child_errors)
-    child_errors.each do |attribute, message|
-      errors.add(attribute, message)
-    end
-  end
-
-  def handle_suceess
-    true
-  end
-
-  def handle_failure
-    promote_errors(@school.errors)
-    false
+  def perform
+    super(School)
   end
 end

@@ -4,13 +4,17 @@ class CreateUser < Service::Create
   field :school
   field :center
   field :location
+  field :type
+  field :level
 
-  def initialize(name:, email:, phone_number:, center:, location:)
+  def initialize(name:, is_active: false, center:, location:, school:, type:, level:)
     @name = name
-    @email = email
-    @phone_number = phone_number
     @center = center
     @location = location
+    @school = school
+    @is_active = is_active
+    @type = type
+    @level = level
   end
 
   def perform

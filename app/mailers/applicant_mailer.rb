@@ -3,7 +3,7 @@ class ApplicantMailer < ApplicationMailer
 
   def welcome_email(id)
     @user = Applicant.find(id)
-    mail(to: @user.email, subject: "Welcome to Teencode")
+    mail(to: @user.email, subject: 'Welcome to Teencode')
   end
 
   def admin_applicant_email(applicant_id:)
@@ -11,7 +11,7 @@ class ApplicantMailer < ApplicationMailer
     mail(
       to: TEENCODEADMINEMAIL,
       cc: TEAMLEADS,
-      subject: "[Feedback] A user wants to be part of teencode",
+      subject: '[Feedback] A user wants to be part of teencode',
       from: @applicant.email
     )
   end

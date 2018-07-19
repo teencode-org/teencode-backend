@@ -1,7 +1,10 @@
 FactoryGirl.define do
   factory :user do
-    name "MyString"
+    name 'MyString'
     is_active false
-    school_id 1
+    center 'Lagos Island'
+    location 'Nigeria'
+    type 'student'
+    level 'SS1'
   end
 end

@@ -26,8 +26,8 @@ class Api::V1::BlogsController < ApplicationController
   end
 
   def featured_blogs
-    @blogs = Blog.where(featured: true)
-      .page(params[:page]).per(params[:per_page])
+    @blogs = Blog.where(featured: true).
+             page(params[:page]).per(params[:per_page])
     render(
       json: {
         blogs: ActiveModel::ArraySerializer.new(@blogs),

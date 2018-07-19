@@ -18,13 +18,13 @@ class Base
     @fields ||= []
   end
 
-  def self.field(name, optional: false, **validations)
+  def self.field(name, optional: false, **_validations)
     attr_reader name
     fields << name.to_sym
   end
 
   private def changeset
-    self.class.fields.reduce({}) do |h, f|
+    self.class.fields.inject({}) do |h, f|
       send(f).eql?(NOT_SET) ? h : h.merge(f => send(f))
     end
   end

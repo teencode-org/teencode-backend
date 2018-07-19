@@ -11,7 +11,7 @@ class ApplicationMailer < ActionMailer::Base
     'abdulqahhar.aminujatto@andela.com',
     'loice.andia@andela.com',
     'godwin.onisofien@andela.com'
-  ]
+  ].freeze
 
   TEENCODEADMINEMAIL = 'teencodeafrica@gmail.com'.freeze
   layout 'mailer'

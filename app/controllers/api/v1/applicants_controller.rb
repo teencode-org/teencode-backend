@@ -14,8 +14,7 @@ class Api::V1::ApplicantsController < ApplicationController
     if create_applicant.save
       render json: create_applicant.applicant, status: 201
     else
-      binding.pry
-      render json: { error: 'Applicant could not be created'}, status: 422
+      render json: { error: 'Applicant could not be created' }, status: 422
     end
   end
 
@@ -24,7 +23,7 @@ class Api::V1::ApplicantsController < ApplicationController
     if applicant.update_attributes(applicants_params)
       render json: applicant, status: 200
     else
-      render json: { error: 'Applicant could not be created'}, status: 422
+      render json: { error: 'Applicant could not be created' }, status: 422
     end
   end
 
@@ -33,7 +32,6 @@ class Api::V1::ApplicantsController < ApplicationController
     applicant.destroy
     render json: { success: 'Applicant deleted successfully' }, status: 200
   end
-
 
   private
 

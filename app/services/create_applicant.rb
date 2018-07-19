@@ -10,8 +10,8 @@ class CreateApplicant
       reason_for_applying: reason_for_applying,
       phone_number: phone_number,
       email: email
-      )
-      persist
+    )
+    persist
   end
 
   private

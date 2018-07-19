@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180718133748) do
+ActiveRecord::Schema.define(version: 20180719063305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,8 +184,9 @@ ActiveRecord::Schema.define(version: 20180718133748) do
     t.boolean  "is_active"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "type",                null: false
+    t.string   "school_type",         null: false
     t.string   "location",            null: false
+    t.string   "center"
     t.index ["lead_facilitator_id"], name: "index_schools_on_lead_facilitator_id", using: :btree
     t.index ["name"], name: "index_schools_on_name", using: :btree
   end
@@ -204,7 +205,10 @@ ActiveRecord::Schema.define(version: 20180718133748) do
     t.integer  "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "type",       null: false
+    t.string   "center"
+    t.string   "location"
+    t.string   "type"
+    t.string   "level"
   end
 
   add_foreign_key "facilitator_guides", "sessions"

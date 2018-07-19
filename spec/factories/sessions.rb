@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :session do
-    title "MyString"
-    description "MyText"
+    title 'MyString'
+    description 'MyText'
 
     factory :session_with_resources do
       after(:create) do |session|

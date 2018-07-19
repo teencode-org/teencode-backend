@@ -14,7 +14,7 @@ class Api::V1::InquiriesController < ApplicationController
     if create_inquiry.save
       render json: create_inquiry.inquiry, status: 201, root: false
     else
-      render json: { errors: create_inquiry.errors}, status: 422
+      render json: { errors: create_inquiry.errors }, status: 422
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::InquiriesController < ApplicationController
     if inquiry.update_attributes(inquiries_params)
       render json: inquiry, status: 200, root: false
     else
-      render json: { error: 'Inquiry could not be created'}, status: 422
+      render json: { error: 'Inquiry could not be created' }, status: 422
     end
   end
 
@@ -32,7 +32,6 @@ class Api::V1::InquiriesController < ApplicationController
     inquiry.destroy
     render json: { success: 'Inquiry deleted successfully' }, status: 200
   end
-
 
   private
 
