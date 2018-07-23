@@ -12,6 +12,16 @@ ActiveAdmin.register Parent do
 #   permitted
 # end
   permit_params :name, :email, :phone_number, :center, :location, notes_attributes: %i(name level gebder)
+
+  sidebar 'Metrics', only: %i(show edit) do
+    ul do
+      li "Parents Count: #{Parent.count}"
+      li "Students Count: #{Student.count}"
+      li "Mainland Students Count: #{Student.mainland_students.count}"
+      li "Island Students Count: #{Student.island_students.count}"
+    end
+  end
+
   show do
     attributes_table do
       row :name
