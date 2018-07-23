@@ -1,11 +1,15 @@
 module Service
   class Create < Base
     private def perform(klass)
-      record = klass.new(changeset)
-      if record.save!
-        handle_success(record)
-      else
-        handle_failure(record)
+      Result.new.tap do |result|
+        if valid?
+          catch_uniqueness_error do
+            record = klass.create!(changeset)
+            result.succeed(record)
+          end
+        end
+
+        result.fail(errors)
       end
     end
   end

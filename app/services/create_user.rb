@@ -1,20 +1,12 @@
 class CreateUser < Service::Create
-  field :name
+  field :name, presence: true
   field :is_active
   field :school
-  field :center
-  field :location
-  field :type
-  field :level
 
-  def initialize(name:, is_active: false, center:, location:, school:, type:, level:)
+  def initialize(name:, is_active: false, school: nil)
     @name = name
-    @center = center
-    @location = location
     @school = school
     @is_active = is_active
-    @type = type
-    @level = level
   end
 
   def perform

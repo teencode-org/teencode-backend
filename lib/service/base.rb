@@ -1,8 +1,6 @@
 class Base
   include ActiveModel::Validations
 
-  Result = Struct.new(:state, :value)
-
   # null-ish
   NOT_SET = Object.new
   def NOT_SET.try!(*_)
@@ -11,16 +9,22 @@ class Base
 
   def self.perform(*args, **params)
     klass = params.any? ? new(*args, **params) : new(*args)
-    klass.perform
+    klass.perform_in_transaction
   end
 
   def self.fields
     @fields ||= []
   end
 
-  def self.field(name, optional: false, **_validations)
+  def self.field(name, optional: false, **validations)
     attr_reader name
     fields << name.to_sym
+
+    if optional && validations.any?
+      validates name, validations.merge(unless: -> { send(name).eql(NOT_SET) })
+    elsif validations.any?
+      validates name, validations
+    end
   end
 
   private def changeset
@@ -29,11 +33,27 @@ class Base
     end
   end
 
-  private def handle_success(record)
-    Result.new(true, record)
+  def perform_in_transaction
+    transaction { perform }
   end
 
-  private def handle_failure(record)
-    Result.new(false, record)
+  private def transaction
+    result = nil
+    ActiveRecord::Base.transaction do
+      result = yield
+      result.on_failure { raise ActiveRecord::Rollback }
+    end
+    result
+  end
+
+  # forgiveness is faster than permission
+  private def catch_uniqueness_error
+    yield
+  rescue ActiveRecord::RecordNotUnique => e
+    field = e.cause.message.match(/index_([a-z_]*)_on_([a-z_]*)/)[2]
+
+    raise unless field
+
+    errors.add(field, :taken)
   end
 end

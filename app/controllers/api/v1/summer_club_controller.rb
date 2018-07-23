@@ -1,10 +1,10 @@
 class Api::V1::SummerClubController < ApplicationController
   def apply
     result = CreateSummerClubApplication.perform(parent: params['parent'], children: params['children'])
-    if result.state
+    if result.succeeded?
       success
     else
-      not_found(result.value)
+      not_found(result.reason)
     end
   end
 

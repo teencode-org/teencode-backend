@@ -2,26 +2,23 @@ require 'rails_helper'
 
 RSpec.describe CreateUser, type: :service do
   it 'success' do
-    school = create(
-      :school,
-      lead_facilitator_id: create(:user, school_id: 0).id
-    )
-    result = CreateUser.perform(attributes_for(:user, school: school))
+    result = CreateUser.perform(attributes_for(:user))
 
-    expect(result.state).to eq(true)
-    expect(result.value).to be_an_instance_of(User)
+    expect(result.succeeded?).to eq(true)
+    expect(result.value.name).to be_truthy
+    expect(result.value.is_active).to be_truthy
   end
 
-  # describe 'failure' do
-  #   it 'returns field errors' do
-  #     result = CreateUser.perform(
-        #   attributes_for(:user, name: '', type: nil, school: nil)
-        # )
+  describe 'failure' do
+    context '#name' do
+      it 'missing' do
+        ['', ' ', nil].each do |v|
+          result = CreateUser.perform(attributes_for(:user, name: v))
 
-  #     expect(result.state).to eq(false)
-  #     expect(result.value.errors.messages[:name]).to eq(["can't be blank"])
-  #     expect(result.value.errors.messages[:school_id]).to eq(["can't be blank"])
-  #     expect(result.value.errors.messages[:type]).to eq(["can't be blank"])
-  #   end
-  # end
+          expect(result.failed?).to be_truthy
+          expect_errors [:blank], result.reason.details[:name]
+        end
+      end
+    end
+  end
 end

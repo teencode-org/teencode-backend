@@ -1,13 +1,13 @@
 class CreateSchool < Service::Create
-  field :name
-  field :address
-  field :lead_facilitator_id
-  field :location
-  field :school_type
+  field :name, presence: true
+  field :address, presence: true
+  field :location, presence: true
+  field :school_type, presence: true
+  field :center, presence: true
   field :is_active
-  field :center
+  field :lead_facilitator_id
 
-  def initialize(name:, location:, lead_facilitator_id:, school_type:, is_active:, address:, center:)
+  def initialize(name:, location:, lead_facilitator_id: nil, school_type:, is_active:, address:, center:) # rubocop:disable Metric/Length
     @name = name
     @address = address
     @lead_facilitator_id = lead_facilitator_id
