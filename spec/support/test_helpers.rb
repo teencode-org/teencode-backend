@@ -12,7 +12,7 @@ module Support
       ActiveJob::Base
         .queue_adapter
         .enqueued_jobs
-        .select { |j| j[:job] == ActionMailer::DeliveryJob || ActionMailer::Parameterized::DeliveryJob } # rubocop:disable Metrics/LineLength
+        .select { |j| j[:job] == ActionMailer::DeliveryJob }
         .map { |j| j[:args] }
         .select { |args| args[0] == mailer.name && args[1] == template_name.to_s }
     end
