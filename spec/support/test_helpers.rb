@@ -4,20 +4,17 @@ module Support
       JSON.parse(body, symbolize_names: true)
     end
 
-    # def get_helper(user, url, body = nil, expected_status = 200)
-    #   request_helper(method: :get, url: url, body: body, headers: stark_headers_for(user), expected_status: expected_status)
-    # end
-    #
-    # def request_helper(method: ,url: , expected_status: , body: nil, headers: {})
-    #   send(method, url, body, headers)
-    #
-    #   expect(response.status).to eq(expected_status)
-    #
-    #   if response.body.blank?
-    #     response.body
-    #   else
-    #     expect(response.content_type).to eq('application/json')
-    #   end
-    # end
+    def expect_errors(expected, details)
+      expect(expected).to eql(details.map { |h| h[:error] })
+    end
+
+    def enqueued_emails(mailer, template_name)
+      ActiveJob::Base
+        .queue_adapter
+        .enqueued_jobs
+        .select { |j| j[:job] == ActionMailer::DeliveryJob || ActionMailer::Parameterized::DeliveryJob } # rubocop:disable Metrics/LineLength
+        .map { |j| j[:args] }
+        .select { |args| args[0] == mailer.name && args[1] == template_name.to_s }
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180719063305) do
+ActiveRecord::Schema.define(version: 20180722162518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,16 +199,24 @@ ActiveRecord::Schema.define(version: 20180719063305) do
     t.integer  "order"
   end
 
+  create_table "students", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "level"
+    t.string   "gender"
+    t.integer  "parent_id"
+    t.integer  "school_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_students_on_parent_id", using: :btree
+    t.index ["school_id"], name: "index_students_on_school_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.boolean  "is_active"
     t.integer  "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "center"
-    t.string   "location"
-    t.string   "type"
-    t.string   "level"
   end
 
   add_foreign_key "facilitator_guides", "sessions"
@@ -218,4 +226,6 @@ ActiveRecord::Schema.define(version: 20180719063305) do
   add_foreign_key "reports", "users"
   add_foreign_key "resources", "sessions"
   add_foreign_key "schools", "users", column: "lead_facilitator_id"
+  add_foreign_key "students", "parents"
+  add_foreign_key "students", "schools"
 end

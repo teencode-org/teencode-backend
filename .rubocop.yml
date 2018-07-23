@@ -45,7 +45,7 @@ Style/IfUnlessModifier:
   Description: Favor modifier if/unless usage when you have a single-line body.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
   Enabled: false
-  MaxLineLength: 80
+  MaxLineLength: 100
 Style/OptionHash:
   Description: Don't use option hashes when you can use keyword arguments.
   Enabled: false
@@ -219,7 +219,7 @@ Style/BlockLength:
   Exclude:
     - 'Rakefile'
     - '**/*.rake'
-    - 'test/**/*.rb'
+    - 'spec/**/*.rb'
     - 'app/admin/*.rb'
 Style/SpecialGlobalVars:
   Description: Avoid Perl-style global variables.
@@ -235,7 +235,7 @@ Style/WhenThen:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#one-line-cases
   Enabled: false
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  EnforcedStyle: nested
 Lint/EachWithObjectArgument:
   Description: Check for immutable argument given to each_with_object.
   Enabled: true

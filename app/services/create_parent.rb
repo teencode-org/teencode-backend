@@ -1,9 +1,9 @@
 class CreateParent < Service::Create
-  field :name
-  field :email
-  field :phone_number
-  field :center
-  field :location
+  field :name, presence: true
+  field :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  field :phone_number, presence: true
+  field :center, presence: true
+  field :location, presence: true
 
   def initialize(name:, email:, phone_number:, center:, location:)
     @name = name

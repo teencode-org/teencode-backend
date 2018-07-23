@@ -8,36 +8,26 @@ class CreateSummerClubApplication < Base
   end
 
   def perform
-    Parent.transaction do
-      create_parent
-      User.transaction do
-        create_students
+    create_parent
+      .then { |parent| create_students(parent) }
+      .on_success do |students|
+        SummerClubMailer.registration_success(students.first.parent.id).deliver_later
       end
-    end
-    Base::Result.new(true, nil)
-  rescue => e
-    # binding.pry
-    Raven.capture_exception(
-      e,
-      message: e.message,
-      extra: { parent: parent, children: children }
-    )
-    Base::Result.new(false, e.message)
   end
 
   private
 
-  def create_students
-    children.map do |child|
-      CreateUser.perform(
-        name: child[:name],
-        level: child[:level],
-        location: 'Lagos',
-        center: parent[:center],
-        school: School.where('school_type = ? and center = ?', 'summer_club', parent[:center]).first,
-        type: 'student'
-      )
-    end
+  def create_students(parent)
+    Service::Result.all(
+      children.map do |child|
+        CreateStudent.perform(
+          name: child[:name],
+          level: child[:level],
+          school: School.where('school_type = ? and center = ?', 'summer_club', parent[:center]).first,
+          parent: parent
+        )
+      end
+    )
   end
 
   def create_parent

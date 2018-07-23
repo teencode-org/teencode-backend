@@ -15,48 +15,101 @@ RSpec.describe CreateSummerClubApplication, type: :service do
       ]
     }
   end
+  describe 'success' do
+    context 'with two children' do
+      it 'creates two children and one parent' do
+        create(:school)
+        result = nil
 
-  it 'success' do
-    create(:school, lead_facilitator_id: create(:user, school_id: 0).id)
-    result = nil
+        expect do
+          expect do
+            result = CreateSummerClubApplication.perform(args)
+          end.to change(Parent, :count).by(1)
+        end.to change(Student, :count).by(2)
 
-    expect do
-      expect do
-        result = CreateSummerClubApplication.perform(args)
-      end.to change(Parent, :count).by(1)
-    end.to change(User, :count).by(2)
+        expect(result.succeeded?).to eq(true)
+        expect(result.value.count).to eq(2)
+        expect(enqueued_emails(SummerClubMailer, :registration_success).count).to eq(1)
+      end
+    end
 
-    expect(result.state).to eq(true)
+    context 'with one child' do
+      it 'creates one child and  a parent' do
+        children = [{ name: 'Student One', level: 'SS3' }]
+        create(:school)
+        result = nil
+        expect do
+          expect do
+            result = CreateSummerClubApplication.perform(
+              args.merge(children: children)
+            )
+          end.to change(Parent, :count).by(1)
+        end.to change(Student, :count).by(1)
+
+        expect(result.succeeded?).to eq(true)
+        expect(result.value.count).to eq(1)
+      end
+    end
   end
 
   describe 'failure' do
     context 'invalid parent params' do
       it 'fails' do
-        create(:school, lead_facilitator_id: create(:user, school_id: 0).id)
+        create(:school)
         invalid_parent = { name: nil, email: nil, phone_number: nil, center: nil }
         result = nil
         expect do
           expect do
-            result = CreateSummerClubApplication.perform(args.merge(parent: invalid_parent))
+            result = CreateSummerClubApplication.perform(
+              args.merge(parent: invalid_parent)
+            )
           end.to change(Parent, :count).by(0)
         end.to change(User, :count).by(0)
 
-        expect(result.state).to eq(false)
+        expect(result.failed?).to eq(true)
+        expect_errors [:blank], result.reason.details[:name]
+        expect_errors [:invalid], result.reason.details[:email]
+        expect_errors [:blank], result.reason.details[:phone_number]
+        expect_errors [:blank], result.reason.details[:center]
       end
     end
 
     context 'invalid student one params' do
-      it 'creates only one student' do
-        children = [{ name: 'Student One', level: 'SS3' }]
-        create(:school, lead_facilitator_id: create(:user, school_id: 0).id)
+      it 'fails' do
+        children = [{ name: '', level: nil }]
+        create(:school)
         result = nil
         expect do
           expect do
-            result = CreateSummerClubApplication.perform(args.merge(children: children))
-          end.to change(Parent, :count).by(1)
-        end.to change(User, :count).by(1)
+            result = CreateSummerClubApplication.perform(
+              args.merge(children: children)
+            )
+          end.to change(Parent, :count).by(0)
+        end.to change(Student, :count).by(0)
 
-        expect(result.state).to eq(true)
+        expect(result.failed?).to eq(true)
+        expect_errors [:blank], result.reason.details[:name]
+      end
+    end
+
+    context 'invalid student two params' do
+      it 'fails' do
+        children = [
+          { name: 'First Child', level: 'SS 1' },
+          { name: nil, level: nil }
+        ]
+        create(:school)
+        result = nil
+        expect do
+          expect do
+            result = CreateSummerClubApplication.perform(
+              args.merge(children: children)
+            )
+          end.to change(Parent, :count).by(0)
+        end.to change(Student, :count).by(0)
+
+        expect(result.failed?).to eq(true)
+        expect_errors [:blank], result.reason.details[:name]
       end
     end
   end

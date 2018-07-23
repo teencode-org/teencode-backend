@@ -24,7 +24,7 @@ RSpec.describe 'SummerClub', type: :request do
           expect do
             post '/api/v1/summer-club/apply', params: args
           end.to change(Parent, :count).by(1)
-        end.to change(User, :count).by(2)
+        end.to change(Student, :count).by(2)
 
         expect(response).to have_http_status(200)
         expect(json(response.body)[:success]).to be_present
@@ -40,7 +40,7 @@ RSpec.describe 'SummerClub', type: :request do
           expect do
             post '/api/v1/summer-club/apply', params: args.merge(parent: invalid_parent)
           end.to change(Parent, :count).by(0)
-        end.to change(User, :count).by(0)
+        end.to change(Student, :count).by(0)
 
         expect(response).to have_http_status(400)
         expect(json(response.body)[:error]).to be_present
