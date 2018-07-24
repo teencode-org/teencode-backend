@@ -13,7 +13,7 @@ ActiveAdmin.register Parent do
 # end
   permit_params :name, :email, :phone_number, :center, :location, notes_attributes: %i(name level gebder)
 
-  sidebar 'Metrics', only: %i(show edit) do
+  sidebar 'Metrics', only: %i(show edit, index) do
     ul do
       li "Parents Count: #{Parent.count}"
       li "Students Count: #{Student.count}"
