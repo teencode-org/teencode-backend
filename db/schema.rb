@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619200443) do
+ActiveRecord::Schema.define(version: 20180722162518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,12 +226,7 @@ ActiveRecord::Schema.define(version: 20180619200443) do
     t.index ["user_team_id"], name: "index_users_on_user_team_id", unique: true, using: :btree
   end
 
-  add_foreign_key "facilitator_guides", "sessions"
-  add_foreign_key "lesson_notes", "sessions"
-  add_foreign_key "objectives", "sessions"
-  add_foreign_key "projects", "sessions"
   add_foreign_key "reports", "users"
-  add_foreign_key "resources", "sessions"
   add_foreign_key "schools", "users", column: "lead_facilitator_id"
   add_foreign_key "students", "parents"
   add_foreign_key "students", "schools"
