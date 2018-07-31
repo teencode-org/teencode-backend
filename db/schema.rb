@@ -217,16 +217,18 @@ ActiveRecord::Schema.define(version: 20180730165802) do
     t.string   "name"
     t.boolean  "is_active"
     t.integer  "school_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "display_name"
+    t.string   "user_slack_id"
+    t.string   "user_team_id"
+    t.string   "user_access_token"
+    t.index ["user_access_token"], name: "index_users_on_user_access_token", unique: true, using: :btree
+    t.index ["user_slack_id"], name: "index_users_on_user_slack_id", unique: true, using: :btree
+    t.index ["user_team_id"], name: "index_users_on_user_team_id", unique: true, using: :btree
   end
 
-  add_foreign_key "facilitator_guides", "sessions"
-  add_foreign_key "lesson_notes", "sessions"
-  add_foreign_key "objectives", "sessions"
-  add_foreign_key "projects", "sessions"
   add_foreign_key "reports", "users"
-  add_foreign_key "resources", "sessions"
   add_foreign_key "schools", "users", column: "lead_facilitator_id"
   add_foreign_key "students", "parents"
   add_foreign_key "students", "schools"
