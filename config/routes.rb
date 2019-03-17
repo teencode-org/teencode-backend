@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "blogs/featured", to: "blogs#featured_blogs"
       post 'summer-club/apply', to: 'summer_club#apply'
+      post 'code-club/apply', to: 'code_club#apply'
       resources :applicants
       resources :inquiries
       resources :sessions, path: :curriculum_sessions, only: :index do
