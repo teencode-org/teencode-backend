@@ -5,13 +5,17 @@ class CreateStudent < Service::Create
   field :gender
   field :school, presence: true
   field :parent, presence: true
+  field :address
+  field :data
 
-  def initialize(name:, level: nil, gender: nil, school:, parent:)
+  def initialize(name:, level: nil, gender: nil, school: nil, parent:, address:, data: {})
     @name = name
     @level = level
     @gender = gender
     @school = school
     @parent = parent
+    @address = address
+    @data = data
   end
 
   def perform
